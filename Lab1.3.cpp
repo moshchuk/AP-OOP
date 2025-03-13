@@ -1,7 +1,62 @@
+//////////////////////////////////////////////////////////////////////////////
+// BitString.cpp 
+// Файл реалізації – реалізація методів класу
+
+#include "BitString.h"
+
+using namespace std;
+
+BitString::BitString() : high(0), low(0) {}
+
+BitString::BitString(long h, long l) : high(h), low(l) {}
+
+long BitString::getHigh() const { return high; }
+long BitString::getLow() const { return low; }
+void BitString::setHigh(long h) { high = h; }
+void BitString::setLow(long l) { low = l; }
+
+void BitString::Init(long h, long l) {
+    high = h;
+    low = l;
+}
+
+void BitString::Read() {
+    cout << "Введiть старшi 32 бiти: ";
+    cin >> high;
+    cout << "Введiть молодшi 32 бiти: ";
+    cin >> low;
+}
+
+void BitString::Display() const {
+    cout << "BitString: " << toString() << endl;
+}
+
+string BitString::toString() const {
+    stringstream ss;
+    ss << "High: " << high << " Low: " << low;
+    return ss.str();
+}
+
+BitString BitString::Not() const {
+    return BitString(~high, ~low);
+}
+
+BitString BitString::And(const BitString& other) const {
+    return BitString(high & other.high, low & other.low);
+}
+
+BitString BitString::Or(const BitString& other) const {
+    return BitString(high | other.high, low | other.low);
+}
+//////////////////////////////////////////////////////////////////////////////
+// BitString.h 
+// Заголовний файл 
+#ifndef BITSTRING_H
+#define BITSTRING_H
+
 #include <iostream>
 #include <string>
 #include <sstream>
-using namespace std;
 
 class BitString {
 private:
@@ -9,53 +64,34 @@ private:
     long low;  // Молодші 32 біти
 
 public:
-    BitString() : high(0), low(0) {}
-    BitString(long h, long l) : high(h), low(l) {}
+    BitString();
+    BitString(long h, long l);
 
-    long getHigh() const { return high; }
-    long getLow() const { return low; }
-    void setHigh(long h) { high = h; }
-    void setLow(long l) { low = l; }
+    long getHigh() const;
+    long getLow() const;
+    void setHigh(long h);
+    void setLow(long l);
 
-    void Init(long h, long l) {
-        high = h;
-        low = l;
-    }
+    void Init(long h, long l);
+    void Read();
+    void Display() const;
+    std::string toString() const;
 
-    void Read() {
-        cout << "Введiть старшi 32 бiти: ";
-        cin >> high;
-        cout << "Введiть молодшi 32 бiти: ";
-        cin >> low;
-    }
-
-    void Display() const {
-        cout << "BitString: " << toString() << endl;
-    }
-
-    // Метод перетворення до літерного рядка
-    string toString() const {
-        stringstream ss;
-        ss << "High: " << high << " Low: " << low;
-        return ss.str();
-    }
-
-    BitString Not() const {
-        return BitString(~high, ~low);
-    }
-
-    BitString And(const BitString& other) const {
-        return BitString(high & other.high, low & other.low);
-    }
-
-    BitString Or(const BitString& other) const {
-        return BitString(high | other.high, low | other.low);
-    }
+    BitString Not() const;
+    BitString And(const BitString& other) const;
+    BitString Or(const BitString& other) const;
 };
 
+#endif // BITSTRING_H
+//////////////////////////////////////////////////////////////////////////////
+// Lab1.3.cpp 
+// Головний файл проекту – функція main
+#include <iostream>
+#include "BitString.h"
+
+using namespace std;
 
 int main() {
-    
     setlocale(LC_CTYPE, "ukr");
     BitString a, b, c;
 
