@@ -216,7 +216,24 @@ void Point::toPolar(double& r, double& phi) const {
 bool Point::operator==(const Point& other) const {
     return (x == other.x && y == other.y);
 }
+//////////////////////////////////////////////////////////////////////////////
+// Lab1(7).cpp 
+// головний файл
+#include "triangle.h"
+#include <iostream>
 
+int main() {
+    setlocale(LC_CTYPE, "ukr");
+    Triangle triangle;
+    triangle.Read();
+    triangle.Display();
+
+    std::cout << "Площа: " << triangle.area() << std::endl;
+    std::cout << "Периметр: " << triangle.perimeter() << std::endl;
+    std::cout << "Вид трикутника: " << triangle.triangleType() << std::endl;
+
+    return 0;
+}
 bool Point::operator!=(const Point& other) const {
     return !(*this == other);
 }
